@@ -8,7 +8,7 @@
     <a href="/login">Войти</a><br>
     <a href="/logout">Выйти</a><br>
     <a href="/customerInfo">Информация пользователя</a><br>
-    <a href="/yourorders">Выши заказы</a><br>
+    <a href="/yourorders">Ваши заказы</a><br>
     <c:if test="${customer.role=='ADMIN'}">
         Пнель администратора<br>
         <a href="/order/all">Все заказы</a><br>

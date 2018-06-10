@@ -20,7 +20,6 @@
     <c:choose>
         <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/yourorders'}">
             <p>Пользователь: ${customer.first_name} ${customer.last_name} </p><br>
-            <a href="/order/print">print</a>
             <c:choose>
                 <c:when test="${medicineWrapperList.size()==0}">
                     <h2>Ваша корзина пуста</h2></p>
@@ -45,6 +44,10 @@
                     Наименование: ${order_medicine.medicine.medicine_name} Количество: ${order_medicine.quantity}<br>
                 </c:forEach>
                 <p>Всего: ${orderWrap.total}руб.</p><br>
+                <form action="/order/print" method="post">
+                    <c:set var="orderWrap" value="${orderWrap}" scope="session"/>
+                    <input type="submit" class="linkButton" value="Получить отчет">
+                </form>
             </c:forEach>
 
         </c:when>

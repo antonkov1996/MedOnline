@@ -1,15 +1,16 @@
 package medonline.beans;
 
+import medonline.entities.OrderWrapper;
 import medonline.utils.ExcelWriter;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -17,41 +18,23 @@ import java.io.OutputStream;
 public class PrintOrderServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        OrderWrapper orderWrapper = (OrderWrapper) request.getSession().getAttribute("orderWrap");
+        Workbook workbook= new XSSFWorkbook();
         try {
-            ExcelWriter.create();
+            workbook = ExcelWriter.create(orderWrapper);
         } catch (InvalidFormatException e) {
             e.printStackTrace();
         }
-
-        // тип данных, которые вы отправляете
-        // например application/pdf, text/plain, text/html, image/jpg
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-disposition","attachment; filename=filetodownload.xlsx");
+        response.setHeader("Content-disposition", "attachment; filename=filetodownload.xlsx");
 
-        // файл, который вы отправляете
-        File my_file = new File("orders.xlsx");
-
-        // отправить файл в response
         OutputStream out = response.getOutputStream();
-        FileInputStream in = new FileInputStream(my_file);
+        workbook.write(out);
 
-        byte[] buffer = new byte[4096];
-        int length;
+        response.sendRedirect(request.getContextPath() + "/yourorders");
+    }
 
-        while ((length = in.read(buffer)) > 0){
-            out.write(buffer, 0, length);
-        }
-
-        // освободить ресурсы
-        in.close();
-        out.flush();
-
-
-
-        response.sendRedirect(request.getContextPath()+"/yourorders");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
     }
 }

@@ -1,6 +1,7 @@
 package medonline.utils;
 
 import medonline.entities.Order;
+import medonline.entities.OrderWrapper;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -14,11 +15,9 @@ public class ExcelWriter {
     private static String[] columns = {"id_order", "id_customer", "Order_date", "Toral"};
     private static List<Order> orders = new ArrayList<Order>();
 
-    public static void create() throws IOException,InvalidFormatException {
+    public static Workbook create(OrderWrapper orderWrapper) throws IOException,InvalidFormatException {
         orders.add(new Order());
-        orders.add(new Order());
-        orders.add(new Order());
-        orders.add(new Order());
+
 
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Orders");
@@ -57,8 +56,10 @@ public class ExcelWriter {
         }
 
         // Write the output to a file
-        FileOutputStream fileOut = new FileOutputStream("orders.xlsx");
-        workbook.write(fileOut);
-        fileOut.close();
+//        FileOutputStream fileOut = new FileOutputStream("orders.xlsx");
+//        workbook.write(fileOut);
+//        fileOut.close();
+//        asd
+        return workbook;
     }
 }
