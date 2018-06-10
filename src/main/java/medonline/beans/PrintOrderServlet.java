@@ -25,8 +25,9 @@ public class PrintOrderServlet extends HttpServlet {
         } catch (InvalidFormatException e) {
             e.printStackTrace();
         }
+        String s = "attachment; filename=Order"+orderWrapper.getId_order()+".xlsx";
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-disposition", "attachment; filename=filetodownload.xlsx");
+        response.setHeader("Content-disposition", s);
 
         OutputStream out = response.getOutputStream();
         workbook.write(out);

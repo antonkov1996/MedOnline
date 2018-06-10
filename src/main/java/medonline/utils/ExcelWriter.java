@@ -1,7 +1,9 @@
 package medonline.utils;
 
+import medonline.entities.Medicine;
 import medonline.entities.Order;
 import medonline.entities.OrderWrapper;
+import medonline.entities.Ordered_MedicineWrapper;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -12,12 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExcelWriter {
-    private static String[] columns = {"id_order", "id_customer", "Order_date", "Toral"};
-    private static List<Order> orders = new ArrayList<Order>();
+    private static String[] columns = {"Товар", "Название", "Количество", "Цена"};
 
     public static Workbook create(OrderWrapper orderWrapper) throws IOException,InvalidFormatException {
-        orders.add(new Order());
-
 
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Orders");
@@ -30,36 +29,68 @@ public class ExcelWriter {
         CellStyle headerCellStyle = workbook.createCellStyle();
         headerCellStyle.setFont(headerFont);
 
-        // Create a Row
-        Row headerRow = sheet.createRow(0);
+        int rowNum = 0;
+        Row headerRow = sheet.createRow(rowNum);
+        Cell cell = headerRow.createCell(0);
+        cell.setCellValue("Заказ: ");
+        cell.setCellStyle(headerCellStyle);
 
+        cell=headerRow.createCell(1);
+        cell.setCellValue(""+orderWrapper.getId_order());
+
+        rowNum=1;
+        headerRow = sheet.createRow(rowNum);
+        cell = headerRow.createCell(0);
+        cell.setCellValue("Клиент: ");
+        cell.setCellStyle(headerCellStyle);
+
+        cell=headerRow.createCell(1);
+        cell.setCellValue(""+orderWrapper.getCustomer().getLast_name());
+        cell=headerRow.createCell(2);
+        cell.setCellValue(""+orderWrapper.getCustomer().getFirst_name());
+
+        rowNum=2;
+        headerRow = sheet.createRow(rowNum);
+        cell = headerRow.createCell(0);
+        cell.setCellValue("Дата: ");
+        cell.setCellStyle(headerCellStyle);
+
+        cell=headerRow.createCell(1);
+        cell.setCellValue(""+orderWrapper.getOrder_date());
+
+        rowNum=3;
+        headerRow = sheet.createRow(rowNum);
+        cell = headerRow.createCell(0);
+        cell.setCellValue("Итого: ");
+        cell.setCellStyle(headerCellStyle);
+
+        cell=headerRow.createCell(1);
+        cell.setCellValue(""+orderWrapper.getTotal());
+
+        rowNum=5;
+        headerRow = sheet.createRow(rowNum);
         for (int i = 0; i < columns.length; i++) {
-            Cell cell = headerRow.createCell(i);
+            cell = headerRow.createCell(i);
             cell.setCellValue(columns[i]);
             cell.setCellStyle(headerCellStyle);
         }
 
-        // Create Other rows and cells with orders data
-        int rowNum = 1;
-
-        for (Order order : orders) {
+        rowNum=6;
+        for (Ordered_MedicineWrapper medicine:orderWrapper.getOrdered_medicineList()
+             ) {
             Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(order.getId_order());
-            row.createCell(1).setCellValue(order.getId_customer());
-            row.createCell(2).setCellValue(order.getOrder_date());
-            row.createCell(3).setCellValue(order.getTotal());
+            row.createCell(0).setCellValue(medicine.getId_medicine());
+            row.createCell(1).setCellValue(medicine.getMedicine().getMedicine_name());
+            row.createCell(2).setCellValue(medicine.getQuantity());
+            row.createCell(3).setCellValue(medicine.getMedicine().getPrice());
+
         }
+
 
         // Resize all columns to fit the content size
         for (int i = 0; i < columns.length; i++) {
             sheet.autoSizeColumn(i);
         }
-
-        // Write the output to a file
-//        FileOutputStream fileOut = new FileOutputStream("orders.xlsx");
-//        workbook.write(fileOut);
-//        fileOut.close();
-//        asd
         return workbook;
     }
 }
