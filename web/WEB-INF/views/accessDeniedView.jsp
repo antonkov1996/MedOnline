@@ -16,6 +16,7 @@
 <jsp:include page="_menu.jsp"></jsp:include>
 <div id="content">
 <h3 style="color:red;">Доступ восприщен!</h3>
+    <p style="color: red;">${errorString}</p>
 </div>
 <jsp:include page="_footer.jsp"></jsp:include>
 </body>
