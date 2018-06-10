@@ -19,14 +19,14 @@ public class DeleteMedicineServlet extends HttpServlet {
         String errorString = null;
         try {
             int id_medicine = Integer.parseInt(request.getParameter("id"));
-            DBUtils.deleteMedicineById(connection,id_medicine);
+            DBUtils.deleteMedicineById(connection, id_medicine);
 
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
         request.setAttribute("errorString", errorString);
-        response.sendRedirect(request.getContextPath()+"/medicine/all");
+        response.sendRedirect(request.getContextPath() + "/medicine/all");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

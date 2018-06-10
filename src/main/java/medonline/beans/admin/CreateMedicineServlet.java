@@ -28,26 +28,19 @@ public class CreateMedicineServlet extends HttpServlet {
         String errorString = null;
         if (errorString == null) {
             try {
-                DBUtils.addMedicine(conn,medicine_name,id_provider,price,quantity,id_class);
+                DBUtils.addMedicine(conn, medicine_name, id_provider, price, quantity, id_class);
             } catch (SQLException e) {
                 e.printStackTrace();
                 errorString = e.getMessage();
             }
         }
-
-        // Сохранить информацию в request attribute перед тем как forward к views.
         request.setAttribute("errorString", errorString);
         request.setAttribute("medicine", medicine);
-
-        // Если имеется ошибка forward (перенаправления) к странице 'edit'.
         if (errorString != null) {
             RequestDispatcher dispatcher = request.getServletContext()
                     .getRequestDispatcher("/WEB-INF/views/addMedicineView.jsp");
             dispatcher.forward(request, response);
-        }
-        // Если все хорошо.
-        // Redirect (перенаправить) к странице со списком продуктов.
-        else {
+        } else {
             response.sendRedirect(request.getContextPath() + "/medicine/create");
         }
     }

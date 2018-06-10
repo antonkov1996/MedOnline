@@ -23,38 +23,38 @@ public class SecurityFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         String servletPath = request.getServletPath();
-        System.out.println("SecurityFilter works "+servletPath);
+        System.out.println("SecurityFilter works " + servletPath);
 
         Customer loginedCustomer = MyUtils.getLoginedCustomer(request.getSession());
-        request.getSession().setAttribute("customer",loginedCustomer);
-        if (servletPath.equals("/login")){
-            chain.doFilter(request,response);
+        request.getSession().setAttribute("customer", loginedCustomer);
+        if (servletPath.equals("/login")) {
+            chain.doFilter(request, response);
             return;
         }
         HttpServletRequest wrapRequest = request;
-        if (loginedCustomer!=null){
+        if (loginedCustomer != null) {
             String customerEmail = loginedCustomer.getEmail();
             String role = loginedCustomer.getRole();
-            wrapRequest = new CustomerRoleRequestWrapper(customerEmail,role,request);
+            wrapRequest = new CustomerRoleRequestWrapper(customerEmail, role, request);
         }
 
-        if (SecurityUtils.isSecurityPage(request)){
-            if (loginedCustomer==null){
+        if (SecurityUtils.isSecurityPage(request)) {
+            if (loginedCustomer == null) {
                 String requestURI = request.getRequestURI();
-                int redirectId = MyUtils.storeRedirectAfterLoginUrl(request.getSession(),requestURI);
-                response.sendRedirect(wrapRequest.getContextPath()+"/login?redirectId="+redirectId);
+                int redirectId = MyUtils.storeRedirectAfterLoginUrl(request.getSession(), requestURI);
+                response.sendRedirect(wrapRequest.getContextPath() + "/login?redirectId=" + redirectId);
                 return;
             }
 
             boolean hasPermission = SecurityUtils.hasPermission(wrapRequest);
-            if (!hasPermission){
+            if (!hasPermission) {
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/views/accessDeniedView.jsp");
-                dispatcher.forward(request,response);
+                dispatcher.forward(request, response);
                 return;
             }
         }
 
-        chain.doFilter(wrapRequest,response);
+        chain.doFilter(wrapRequest, response);
     }
 
     public void init(FilterConfig config) throws ServletException {

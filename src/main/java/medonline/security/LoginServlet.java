@@ -37,38 +37,36 @@ public class LoginServlet extends HttpServlet {
         String errorString = null;
         String customerEmail = request.getParameter("email");
         String password = request.getParameter("password");
-        Customer customer =new Customer();
+        Customer customer = new Customer();
         try {
             Connection connection = MyUtils.getStoredConnection(request);
-            customer=DBUtils.findCustomer(connection,customerEmail,password);
-        }
-        catch (SQLException e){
+            customer = DBUtils.findCustomer(connection, customerEmail, password);
+        } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
-        if (customer==null){
-            errorString="Invalid userName or Password";
-            request.setAttribute("errorString",errorString);
+        if (customer == null) {
+            errorString = "Invalid userName or Password";
+            request.setAttribute("errorString", errorString);
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
             return;
         }
-        MyUtils.storeLoginedCustomer(request.getSession(),customer);
+        MyUtils.storeLoginedCustomer(request.getSession(), customer);
         int redirectId = -1;
         try {
-            redirectId=Integer.parseInt(request.getParameter("redirectId"));
-        }
-        catch (Exception e){
+            redirectId = Integer.parseInt(request.getParameter("redirectId"));
+        } catch (Exception e) {
 
         }
-        request.getSession().setAttribute("medicineBasket",new HashMap<>());
-        request.getSession().setAttribute("isLogined",true);
+        request.getSession().setAttribute("medicineBasket", new HashMap<>());
+        request.getSession().setAttribute("isLogined", true);
 
-        String requestUri = MyUtils.getRedirectAfterLoginUrl(request.getSession(),redirectId);
-        if (requestUri!=null){
+        String requestUri = MyUtils.getRedirectAfterLoginUrl(request.getSession(), redirectId);
+        if (requestUri != null) {
             response.sendRedirect(requestUri);
         } else {
-            response.sendRedirect(request.getContextPath()+"/customerInfo");
+            response.sendRedirect(request.getContextPath() + "/customerInfo");
         }
 
 

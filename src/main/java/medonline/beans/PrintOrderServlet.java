@@ -19,13 +19,13 @@ public class PrintOrderServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderWrapper orderWrapper = (OrderWrapper) request.getSession().getAttribute("orderWrap");
-        Workbook workbook= new XSSFWorkbook();
+        Workbook workbook = new XSSFWorkbook();
         try {
             workbook = ExcelWriter.create(orderWrapper);
         } catch (InvalidFormatException e) {
             e.printStackTrace();
         }
-        String s = "attachment; filename=Order"+orderWrapper.getId_order()+".xlsx";
+        String s = "attachment; filename=Order" + orderWrapper.getId_order() + ".xlsx";
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-disposition", s);
 

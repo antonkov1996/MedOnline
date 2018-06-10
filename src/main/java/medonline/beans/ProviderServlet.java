@@ -29,14 +29,14 @@ public class ProviderServlet extends HttpServlet {
         Provider provider = null;
         try {
             int idProvider = Integer.parseInt(request.getParameter("id"));
-            medicineList = DBUtils.querryMedicineByProvider(connection,idProvider);
-            provider=DBUtils.querryProviderById(connection,idProvider);
+            medicineList = DBUtils.querryMedicineByProvider(connection, idProvider);
+            provider = DBUtils.querryProviderById(connection, idProvider);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
         request.setAttribute("errorString", errorString);
-        request.setAttribute("provider",provider);
+        request.setAttribute("provider", provider);
         request.setAttribute("medicineList", medicineList);
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/providerView.jsp");
         dispatcher.forward(request, response);

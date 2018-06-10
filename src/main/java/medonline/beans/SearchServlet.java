@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(name = "SearchServlet",urlPatterns = {"/search"})
+@WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
 public class SearchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
@@ -23,7 +23,7 @@ public class SearchServlet extends HttpServlet {
         String errorString = null;
         List<Medicine> medicineList = null;
         try {
-            medicineList = DBUtils.searchMedicines(conn,search);
+            medicineList = DBUtils.searchMedicines(conn, search);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();

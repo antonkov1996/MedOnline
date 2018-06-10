@@ -12,21 +12,21 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(name = "DeleteOrderServlet",urlPatterns = {"/order/del"})
+@WebServlet(name = "DeleteOrderServlet", urlPatterns = {"/order/del"})
 public class DeleteOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection connection = MyUtils.getStoredConnection(request);
         String errorString = null;
         try {
             int id_order = Integer.parseInt(request.getParameter("id"));
-            DBUtils.deleteOrderById(connection,id_order);
+            DBUtils.deleteOrderById(connection, id_order);
 
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
         request.setAttribute("errorString", errorString);
-        response.sendRedirect(request.getContextPath()+"/order/all");
+        response.sendRedirect(request.getContextPath() + "/order/all");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

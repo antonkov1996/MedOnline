@@ -19,14 +19,14 @@ public class DeleteProviderServlet extends HttpServlet {
         String errorString = null;
         try {
             int id_provider = Integer.parseInt(request.getParameter("id"));
-            DBUtils.deleteProviderById(connection,id_provider);
+            DBUtils.deleteProviderById(connection, id_provider);
 
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
         request.setAttribute("errorString", errorString);
-        response.sendRedirect(request.getContextPath()+"/provider/all");
+        response.sendRedirect(request.getContextPath() + "/provider/all");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -12,7 +12,7 @@ public class MedicineWrapper extends Medicine {
         super.setId_provider(medicine.getId_provider());
         super.setMedicine_name(medicine.getMedicine_name());
         super.setPrice(medicine.getPrice());
-        this.quantity=quantity;
+        this.quantity = quantity;
     }
 
     public MedicineWrapper(int id_medicine, String medicine_name, int id_provider, float price, int quantity, int id_class, int quantity1) {

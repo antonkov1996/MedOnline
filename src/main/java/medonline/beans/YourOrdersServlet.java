@@ -34,19 +34,18 @@ public class YourOrdersServlet extends HttpServlet {
         List<MedicineWrapper> medicineWrapperList = new ArrayList<MedicineWrapper>();
         if (medicineBasket != null) {
             Iterator iterator = medicineBasket.keySet().iterator();
-            int i =0;
+            int i = 0;
             while (iterator.hasNext()) {
 
                 try {
                     medicine = DBUtils.querryMedicineByID(connection, (Integer) iterator.next());
                     int quantity = quantityList.get(i);
-                    medicineWrapperList.add(new MedicineWrapper(medicine,quantity));
+                    medicineWrapperList.add(new MedicineWrapper(medicine, quantity));
                 } catch (SQLException e) {
                     e.printStackTrace();
                     errorString = e.getMessage();
                 }
                 i++;
-
             }
         }
         Customer customer = new Customer();
@@ -69,8 +68,6 @@ public class YourOrdersServlet extends HttpServlet {
             e.printStackTrace();
             errorString = e.getMessage();
         }
-
-
         request.setAttribute("errorString", errorString);
         request.setAttribute("orderWrapperList", orderWrapperList);
         request.setAttribute("customer", customer);

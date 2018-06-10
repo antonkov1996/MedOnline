@@ -13,25 +13,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MyUtils {
-	public static final String ATT_NAME_CONNECTION = "ATTRIBUTE_FOR_CONNECTION";
-	 
+    public static final String ATT_NAME_CONNECTION = "ATTRIBUTE_FOR_CONNECTION";
+
     private static final String ATT_NAME_USER_NAME = "ATTRIBUTE_FOR_STORE_USER_NAME_IN_COOKIE";
 
- 
-    // Сохранить Connection в attribute в request.
-    // Данная информация хранения существует только во время запроса (request)
-    // до тех пор, пока данные возвращаются приложению пользователя.
     public static void storeConnection(ServletRequest request, Connection conn) {
         request.setAttribute(ATT_NAME_CONNECTION, conn);
     }
- 
-    // Получить объект Connection сохраненный в attribute в request.
+
     public static Connection getStoredConnection(ServletRequest request) {
         Connection conn = (Connection) request.getAttribute(ATT_NAME_CONNECTION);
         return conn;
     }
-
-    // UrlPattern for security
 
     private static int REDIRECT_ID = 0;
 
@@ -54,11 +47,6 @@ public class MyUtils {
         return false;
     }
 
-    // servletPath:
-    // ==> /spath
-    // ==> /spath/*
-    // ==> *.ext
-    // ==> /
     public static String getUrlPattern(HttpServletRequest request) {
         ServletContext servletContext = request.getServletContext();
         String servletPath = request.getServletPath();
@@ -88,13 +76,10 @@ public class MyUtils {
         return "/";
     }
 
-    // Сохранить информацию пользователя в Session.
     public static void storeLoginedCustomer(HttpSession session, Customer customer) {
-        // На JSP можно получить доступ через ${loginedUser}
         session.setAttribute("loginedCusomer", customer);
     }
 
-    // Получить информацию пользователя, сохраненную в Session.
     public static Customer getLoginedCustomer(HttpSession session) {
         Customer customer = (Customer) session.getAttribute("loginedCusomer");
         return customer;

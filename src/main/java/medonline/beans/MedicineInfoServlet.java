@@ -19,17 +19,16 @@ import java.sql.SQLException;
 @WebServlet(name = "MedicineInfoServlet", urlPatterns = {"/medicine"})
 public class MedicineInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        doGet(request, response);
         Connection connection = MyUtils.getStoredConnection(request);
         String errorString = null;
         Medicine medicine = new Medicine();
         Provider provider = new Provider();
-        Classification classification= new Classification();
+        Classification classification = new Classification();
         try {
             int id_medicine = Integer.parseInt(request.getParameter("id"));
-            medicine = DBUtils.querryMedicineByID(connection,id_medicine);
-            provider=DBUtils.querryProviderById(connection, medicine.getId_provider());
-            classification=DBUtils.querryClassById(connection, medicine.getId_class());
+            medicine = DBUtils.querryMedicineByID(connection, id_medicine);
+            provider = DBUtils.querryProviderById(connection, medicine.getId_provider());
+            classification = DBUtils.querryClassById(connection, medicine.getId_class());
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();

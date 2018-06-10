@@ -18,7 +18,6 @@ import java.sql.SQLException;
 public class CreateProviderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
-
         String prov_name = (String) request.getParameter("prov_name");
         String address = (String) request.getParameter("address");
         String city = (String) request.getParameter("city");
@@ -26,26 +25,19 @@ public class CreateProviderServlet extends HttpServlet {
         String errorString = null;
         if (errorString == null) {
             try {
-                DBUtils.addProvider(conn,prov_name,address,city);
+                DBUtils.addProvider(conn, prov_name, address, city);
             } catch (SQLException e) {
                 e.printStackTrace();
                 errorString = e.getMessage();
             }
         }
-
-        // Сохранить информацию в request attribute перед тем как forward к views.
         request.setAttribute("errorString", errorString);
         request.setAttribute("provider", provider);
-
-        // Если имеется ошибка forward (перенаправления) к странице 'edit'.
         if (errorString != null) {
             RequestDispatcher dispatcher = request.getServletContext()
                     .getRequestDispatcher("/WEB-INF/views/addProviderView.jsp");
             dispatcher.forward(request, response);
-        }
-        // Если все хорошо.
-        // Redirect (перенаправить) к странице со списком продуктов.
-        else {
+        } else {
             response.sendRedirect(request.getContextPath() + "/provider/all");
         }
     }

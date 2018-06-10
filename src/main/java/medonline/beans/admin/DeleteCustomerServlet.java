@@ -19,14 +19,14 @@ public class DeleteCustomerServlet extends HttpServlet {
         String errorString = null;
         try {
             int id_customer = Integer.parseInt(request.getParameter("id"));
-            DBUtils.deleteCustomerById(connection,id_customer);
+            DBUtils.deleteCustomerById(connection, id_customer);
 
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
         request.setAttribute("errorString", errorString);
-        response.sendRedirect(request.getContextPath()+"/customer/all");
+        response.sendRedirect(request.getContextPath() + "/customer/all");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

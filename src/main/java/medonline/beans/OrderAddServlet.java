@@ -19,7 +19,6 @@ import java.util.List;
 @WebServlet(name = "OrderAddServlet", urlPatterns = {"/order/add"})
 public class OrderAddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        Connection connection = MyUtils.getStoredConnection(request);
         Connection connection = null;
         List<MedicineWrapper> medicineWrapperList = (List<MedicineWrapper>) request.getSession().getAttribute("medicineWrapperList");
         String errorString = null;
@@ -28,37 +27,37 @@ public class OrderAddServlet extends HttpServlet {
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = sdf.format(dt);
         CustomerRoleRequestWrapper customerRoleRequestWrapper = (CustomerRoleRequestWrapper) request;
-        int id_order=0;
+        int id_order = 0;
         try {
-            connection=MyConnection.getConnection();
-            customer=DBUtils.findCustomer(connection, customerRoleRequestWrapper.getEmail());
-            id_order=DBUtils.addOrder(connection,customer.getId_custom(),currentTime);
+            connection = MyConnection.getConnection();
+            customer = DBUtils.findCustomer(connection, customerRoleRequestWrapper.getEmail());
+            id_order = DBUtils.addOrder(connection, customer.getId_custom(), currentTime);
             MyConnection.closeQuietly(connection);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             MyConnection.rollbackQuietly(connection);
             e.printStackTrace();
             errorString = e.getMessage();
         }
-        connection=null;
+        connection = null;
         try {
-            connection=MyConnection.getConnection();
-            for (MedicineWrapper medicineWrapper:medicineWrapperList
+            connection = MyConnection.getConnection();
+            for (MedicineWrapper medicineWrapper : medicineWrapperList
                     ) {
-                DBUtils.addOrderedMedicine(connection,medicineWrapper.getId_medicine(),id_order,medicineWrapper.getQuantity());
+                DBUtils.addOrderedMedicine(connection, medicineWrapper.getId_medicine(), id_order, medicineWrapper.getQuantity());
             }
             MyConnection.closeQuietly(connection);
-        }catch (Exception e){
+        } catch (Exception e) {
             MyConnection.rollbackQuietly(connection);
             e.printStackTrace();
             errorString = e.getMessage();
         }
-        connection=null;
+        connection = null;
         try {
-            connection=MyConnection.getConnection();
-            DBUtils.updateTotalOrder(connection,id_order);
+            connection = MyConnection.getConnection();
+            DBUtils.updateTotalOrder(connection, id_order);
             MyConnection.closeQuietly(connection);
-        }catch (Exception e){
+        } catch (Exception e) {
             MyConnection.rollbackQuietly(connection);
             e.printStackTrace();
             errorString = e.getMessage();
@@ -68,8 +67,8 @@ public class OrderAddServlet extends HttpServlet {
         medicineBasket.clear();
         request.setAttribute("errorString", errorString);
         request.getSession().setAttribute("medicineWrapperList", medicineWrapperList);
-        request.getSession().setAttribute("medicineBasket",medicineBasket);
-        response.sendRedirect(request.getContextPath()+"/yourorders");
+        request.getSession().setAttribute("medicineBasket", medicineBasket);
+        response.sendRedirect(request.getContextPath() + "/yourorders");
 
     }
 

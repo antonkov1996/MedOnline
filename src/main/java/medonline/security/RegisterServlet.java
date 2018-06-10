@@ -23,21 +23,20 @@ public class RegisterServlet extends HttpServlet {
         String last_name = request.getParameter("last_name");
         try {
             Connection connection = MyUtils.getStoredConnection(request);
-             DBUtils.registerCustomer(connection,customerEmail,password,first_name,last_name);
-        }
-        catch (SQLException e){
+            DBUtils.registerCustomer(connection, customerEmail, password, first_name, last_name);
+        } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
-        if (customerEmail==null||password==null||first_name==null||last_name==null){
-            errorString="Input all data";
-            request.setAttribute("errorString",errorString);
+        if (customerEmail == null || password == null || first_name == null || last_name == null) {
+            errorString = "Input all data";
+            request.setAttribute("errorString", errorString);
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/registerView.jsp");
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
             return;
         }
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -14,36 +14,28 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(name = "CreateClassificationServlet",urlPatterns = {"/class/add"})
+@WebServlet(name = "CreateClassificationServlet", urlPatterns = {"/class/add"})
 public class CreateClassificationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
-
         String description = (String) request.getParameter("description");
-        Classification classification= new Classification();
+        Classification classification = new Classification();
         String errorString = null;
         if (errorString == null) {
             try {
-                DBUtils.addClass(conn,description);
+                DBUtils.addClass(conn, description);
             } catch (SQLException e) {
                 e.printStackTrace();
                 errorString = e.getMessage();
             }
         }
-
-        // Сохранить информацию в request attribute перед тем как forward к views.
         request.setAttribute("errorString", errorString);
         request.setAttribute("classification", classification);
-
-        // Если имеется ошибка forward (перенаправления) к странице 'edit'.
         if (errorString != null) {
             RequestDispatcher dispatcher = request.getServletContext()
                     .getRequestDispatcher("/WEB-INF/views/addClassificationView.jsp");
             dispatcher.forward(request, response);
-        }
-        // Если все хорошо.
-        // Redirect (перенаправить) к странице со списком продуктов.
-        else {
+        } else {
             response.sendRedirect(request.getContextPath() + "/catalog");
         }
     }

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(name = "ChangeRoleServlet",urlPatterns = {"/customer/admin"})
+@WebServlet(name = "ChangeRoleServlet", urlPatterns = {"/customer/admin"})
 public class ChangeRoleServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -21,14 +21,14 @@ public class ChangeRoleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection connection = MyUtils.getStoredConnection(request);
         String errorString = null;
-        int id =  Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         try {
-            DBUtils.changeCustomerToAdminById(connection,id);
+            DBUtils.changeCustomerToAdminById(connection, id);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
         request.setAttribute("errorString", errorString);
-        response.sendRedirect(request.getContextPath()+"/customer/all");
+        response.sendRedirect(request.getContextPath() + "/customer/all");
     }
 }

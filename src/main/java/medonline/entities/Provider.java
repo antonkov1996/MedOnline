@@ -60,6 +60,7 @@ public class Provider {
                 ", city='" + city + '\'' +
                 '}';
     }
+
     public static Provider initResultSet(Provider provider, ResultSet rs) throws SQLException {
         provider.setId_provider(rs.getInt("id_provider"));
         provider.setProv_name(rs.getString("prov_name"));

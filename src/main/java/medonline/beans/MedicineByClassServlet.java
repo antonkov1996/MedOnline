@@ -18,13 +18,12 @@ import java.util.List;
 @WebServlet(name = "MedicineByClassServlet", urlPatterns = {"/catalog/class"})
 public class MedicineByClassServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        doGet(request, response);
         Connection connection = MyUtils.getStoredConnection(request);
         String errorString = null;
         List<Medicine> medicineList = null;
         try {
             int idClass = Integer.parseInt(request.getParameter("id"));
-            medicineList = DBUtils.querryMedicineByClass(connection,idClass);
+            medicineList = DBUtils.querryMedicineByClass(connection, idClass);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();

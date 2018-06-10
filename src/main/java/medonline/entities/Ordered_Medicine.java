@@ -14,7 +14,7 @@ public class Ordered_Medicine {
     public Ordered_Medicine(int id_medicine, int id_order, int quantity) {
         this.id_medicine = id_medicine;
         this.id_order = id_order;
-        this.quantity=quantity;
+        this.quantity = quantity;
     }
 
     public int getQuantity() {

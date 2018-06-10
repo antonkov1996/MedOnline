@@ -33,24 +33,18 @@ public class EditMedicineServlet extends HttpServlet {
         String errorString = null;
 
         try {
-            DBUtils.updateMedicine(conn,Integer.parseInt(id_medicine), medicine_name,Integer.parseInt(id_provider), price,Integer.parseInt(quantity),Integer.parseInt(id_class));
+            DBUtils.updateMedicine(conn, Integer.parseInt(id_medicine), medicine_name, Integer.parseInt(id_provider), price, Integer.parseInt(quantity), Integer.parseInt(id_class));
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
-        // Сохранить информацию в request attribute перед тем как forward к views.
         request.setAttribute("errorString", errorString);
         request.setAttribute("medicine", medicine);
-
-        // Если имеется ошибка, forward к странице edit.
         if (errorString != null) {
             RequestDispatcher dispatcher = request.getServletContext()
                     .getRequestDispatcher("/WEB-INF/views/editMedicineView.jsp");
             dispatcher.forward(request, response);
-        }
-        // Если все хорошо.
-        // Redirect к странице со списком продуктов.
-        else {
+        } else {
             response.sendRedirect(request.getContextPath() + "/medicine/all");
         }
     }
@@ -67,16 +61,10 @@ public class EditMedicineServlet extends HttpServlet {
             e.printStackTrace();
             errorString = e.getMessage();
         }
-
-        // Ошибки не имеются.
-        // Продукт не существует для редактирования (edit).
-        // Redirect sang trang danh sách sản phẩm.
         if (errorString != null && medicine == null) {
             response.sendRedirect(request.getServletPath() + "/medicine/all");
             return;
         }
-
-        // Сохранить информацию в request attribute перед тем как forward к views.
         request.setAttribute("errorString", errorString);
         request.setAttribute("medicine", medicine);
 

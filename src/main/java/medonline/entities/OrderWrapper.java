@@ -26,7 +26,6 @@ public class OrderWrapper extends Order {
     }
 
 
-
     public Customer getCustomer() {
         return customer;
     }

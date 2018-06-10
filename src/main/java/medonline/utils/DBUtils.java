@@ -43,10 +43,10 @@ public class DBUtils {
     }
 
     public static List<Medicine> searchMedicines(Connection connection, String search_text) throws SQLException {
-        search_text="%"+search_text+"%";
+        search_text = "%" + search_text + "%";
         String sql = "select * from medicine where medicine_name like ?;";
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1,search_text);
+        statement.setString(1, search_text);
         ResultSet resultSet = statement.executeQuery();
         List<Medicine> medicineList = new ArrayList<Medicine>();
         while (resultSet.next()) {
@@ -284,7 +284,7 @@ public class DBUtils {
 
     public static int addOrder(Connection connection, int id_customer, String date) throws SQLException {
         String sql = "insert into medonline.orders (id_customer,order_date,total) values (?,?,?);";
-        PreparedStatement pstm = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pstm.setInt(1, id_customer);
         pstm.setString(2, date);
         pstm.setFloat(3, 1);
@@ -296,10 +296,9 @@ public class DBUtils {
 
         try (ResultSet generatedKeys = pstm.getGeneratedKeys()) {
             if (generatedKeys.next()) {
-                int i =generatedKeys.getInt(1);
+                int i = generatedKeys.getInt(1);
                 return i;
-            }
-            else {
+            } else {
                 throw new SQLException("Creating user failed, no ID obtained.");
             }
         }
@@ -312,7 +311,7 @@ public class DBUtils {
         pstm.setInt(2, id_order);
         pstm.setInt(3, quantity);
         pstm.executeUpdate();
-        DBUtils.changeMedicineQuantity(connection,id_medicine,quantity);
+        DBUtils.changeMedicineQuantity(connection, id_medicine, quantity);
     }
 
     public static void changeMedicineQuantity(Connection connection, int id_medicine, int quantity) throws SQLException {
@@ -371,19 +370,19 @@ public class DBUtils {
         statement.executeUpdate();
     }
 
-    public static void updateMedicine (Connection connection,int id_medicine, String name, int id_provider, float price, int quan, int id_class) throws SQLException{
+    public static void updateMedicine(Connection connection, int id_medicine, String name, int id_provider, float price, int quan, int id_class) throws SQLException {
         String sql = "update medicine set medicine_name=? ,id_provider=? ,price=? ,quantity=? ,id_class=? where id_medicine=?;";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, name);
-        statement.setInt(2,id_provider);
-        statement.setFloat(3,price);
-        statement.setInt(4,quan);
-        statement.setInt(5,id_class);
-        statement.setInt(6,id_medicine);
+        statement.setInt(2, id_provider);
+        statement.setFloat(3, price);
+        statement.setInt(4, quan);
+        statement.setInt(5, id_class);
+        statement.setInt(6, id_medicine);
         statement.executeUpdate();
     }
 
-    public static void updateProvider (Connection connection,int id_provider, String name, String address, String city) throws SQLException{
+    public static void updateProvider(Connection connection, int id_provider, String name, String address, String city) throws SQLException {
         String sql = "update providers set providers.prov_name=? ,providers.address=? ,providers.city=? where providers.id_provider=?;";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, name);
@@ -396,27 +395,27 @@ public class DBUtils {
     public static void addProvider(Connection connection, String prov_name, String address, String city) throws SQLException {
         String sql = "insert into providers (prov_name, address, city) VALUES (?,?,?);";
         PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setString(1,prov_name);
-        pstm.setString(2,address);
-        pstm.setString(3,city);
+        pstm.setString(1, prov_name);
+        pstm.setString(2, address);
+        pstm.setString(3, city);
         pstm.executeUpdate();
     }
 
-    public static void addMedicine(Connection connection, String medicine_name, String id_provider, String price,String quantity, String id_class) throws SQLException {
+    public static void addMedicine(Connection connection, String medicine_name, String id_provider, String price, String quantity, String id_class) throws SQLException {
         String sql = "insert into medicine (medicine_name, id_provider, price, quantity, id_class) VALUES (?,?,?,?,?);";
         PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setString(1,medicine_name);
-        pstm.setString(2,id_provider);
-        pstm.setString(3,price);
-        pstm.setString(4,quantity);
-        pstm.setString(5,id_class);
+        pstm.setString(1, medicine_name);
+        pstm.setString(2, id_provider);
+        pstm.setString(3, price);
+        pstm.setString(4, quantity);
+        pstm.setString(5, id_class);
         pstm.executeUpdate();
     }
 
     public static void addClass(Connection connection, String description) throws SQLException {
         String sql = "insert into classification (description) values (?);";
         PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setString(1,description);
+        pstm.setString(1, description);
         pstm.executeUpdate();
     }
 }

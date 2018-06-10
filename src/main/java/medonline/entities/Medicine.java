@@ -83,7 +83,8 @@ public class Medicine {
                 ", id_class=" + id_class +
                 '}';
     }
-    public static Medicine initResultSet (Medicine medicine, ResultSet resultSet)throws SQLException {
+
+    public static Medicine initResultSet(Medicine medicine, ResultSet resultSet) throws SQLException {
         medicine.setId_medicine(resultSet.getInt("id_medicine"));
         medicine.setMedicine_name(resultSet.getString("medicine_name"));
         medicine.setId_provider(resultSet.getInt("id_provider"));

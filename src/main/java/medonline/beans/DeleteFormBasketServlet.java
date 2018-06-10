@@ -24,8 +24,8 @@ public class DeleteFormBasketServlet extends HttpServlet {
         String errorString = null;
         Medicine medicine = new Medicine();
         try {
-            if (request.getParameter("id")==null){
-                response.sendRedirect(request.getContextPath()+"/catalog");
+            if (request.getParameter("id") == null) {
+                response.sendRedirect(request.getContextPath() + "/catalog");
                 return;
             }
             int id = Integer.parseInt(request.getParameter("id"));
@@ -35,7 +35,7 @@ public class DeleteFormBasketServlet extends HttpServlet {
             e.printStackTrace();
             errorString = e.getMessage();
         }
-        request.getSession().setAttribute("medicineBasket",medicineBasket);
-        response.sendRedirect(request.getContextPath()+"/yourorders");
+        request.getSession().setAttribute("medicineBasket", medicineBasket);
+        response.sendRedirect(request.getContextPath() + "/yourorders");
     }
 }

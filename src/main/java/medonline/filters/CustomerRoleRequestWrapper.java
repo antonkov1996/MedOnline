@@ -9,16 +9,16 @@ public class CustomerRoleRequestWrapper extends HttpServletRequestWrapper {
     private String role;
     private HttpServletRequest realRequest;
 
-    public CustomerRoleRequestWrapper(String email,String role, HttpServletRequest request){
+    public CustomerRoleRequestWrapper(String email, String role, HttpServletRequest request) {
         super(request);
-        this.email=email;
-        this.role=role;
-        this.realRequest=request;
+        this.email = email;
+        this.role = role;
+        this.realRequest = request;
     }
 
     @Override
     public boolean isUserInRole(String role) {
-        if (this.role==null){
+        if (this.role == null) {
             return this.realRequest.isUserInRole(role);
         }
         return this.role.contains(role);
@@ -26,7 +26,7 @@ public class CustomerRoleRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public Principal getUserPrincipal() {
-        if (this.email==null){
+        if (this.email == null) {
             return realRequest.getUserPrincipal();
         }
         return new Principal() {
