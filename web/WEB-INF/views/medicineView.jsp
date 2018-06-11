@@ -10,11 +10,13 @@
 <html>
 <head>
     <title>${medicine.medicine_name}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
 </head>
 <body>
 <jsp:include page="_header.jsp"></jsp:include>
-<jsp:include page="_menu.jsp"></jsp:include>
-<div id="content">
+<div class="container">
     <p style="color: red;">${errorString}</p>
     <h2>Припарат ${medicine.medicine_name}</h2>
     <ul>
@@ -22,7 +24,7 @@
         <li>Производитель:
             <form method="post" action="/provider">
                 <input type="hidden" name="id" value="${provider.id_provider}"/>
-                <input type="submit" class="linkButton" value="${provider.prov_name}">
+                <input type="submit" class="btn btn-primary"  value="${provider.prov_name}">
             </form>
         </li>
         <li>Цена: ${medicine.price}</li>
@@ -30,7 +32,7 @@
         <li>Из группы:
             <form method="post" action="/catalog/class">
                 <input type="hidden" name="id" value="${classification.id_class}"/>
-                <input type="submit" class="linkButton" value="${classification.description}">
+                <input type="submit"class="btn btn-primary" value="${classification.description}">
             </form>
     </ul>
 
@@ -44,7 +46,7 @@
                     <input type="hidden" name="redirectId" value="${param.redirectId}"/>
                     <input type="hidden" name="id" value="${medicine.id_medicine}"/>
                     <input type="number" name="q" max="${medicine.quantity}" min="1" value="1" style="width:33px">
-                    <input type="submit" value="Применить"/>
+                    <input type="submit" class="btn btn-primary" value="Добавить в корзину"/>
                 </form>
 
             </c:otherwise>
@@ -57,6 +59,15 @@
 
     <br>
 </div>
-<jsp:include page="_footer.jsp"></jsp:include>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>
