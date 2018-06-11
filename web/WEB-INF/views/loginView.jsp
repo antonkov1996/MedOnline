@@ -36,6 +36,7 @@
 
         <button type="submit" class="btn btn-primary">Войти</button>
         <a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-primary">Отмена</button></a>
+        <a href="/register"><button type="button" class="btn btn-primary">Регистрация</button></a>
     </form>
 
 

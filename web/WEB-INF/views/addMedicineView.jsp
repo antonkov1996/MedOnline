@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: root
@@ -18,7 +19,7 @@
 <div class="container">
     <p style="color: red;">${errorString}</p>
 
-    <form method="POST" action="${pageContext.request.contextPath}/medicine/create">
+    <form method="POST" action="${pageContext.request.contextPath}/medicine/create" id="medicineform">
         <div class="form-group">
             <label for="med">Наименование препарата</label>
             <input type="text" class="form-control" id="med" name="medicine_name"
@@ -28,8 +29,13 @@
         </div>
         <div class="form-group">
             <label for="id_provider">Производитель</label>
-            <input type="text" class="form-control" name="id_provider" id="id_provider" aria-describedby="Производитель"
-                   placeholder="Производитель">
+            <%--<input type="text" class="form-control" name="id_provider" id="id_provider" aria-describedby="Производитель"--%>
+                   <%--placeholder="Производитель">--%>
+            <select name="id_provider" form="medicineform" id="id_provider" class="form-control" >
+                <c:forEach items="${providerList}" var="providerList">
+                    <option value="${providerList.id_provider}">${providerList.prov_name}</option>
+                </c:forEach>
+            </select>
             <small id="Производитель" class="form-text text-muted">Введете производителя.</small>
         </div>
         <div class="form-group">
@@ -45,9 +51,14 @@
             <small class="form-text text-muted">Введете количество.</small>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Имя класса</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="id_class" aria-describedby="Имя класса"
-                   placeholder="Имя класса">
+            <label for="class">Имя класса</label>
+            <%--<input type="text" class="form-control" id="exampleInputEmail1" name="id_class" aria-describedby="Имя класса"--%>
+                   <%--placeholder="Имя класса">--%>
+            <select name="id_class" form="medicineform" id="class" class="form-control" >
+                <c:forEach items="${classificationList}" var="classification">
+                    <option value="${classification.id_class}">${classification.description}</option>
+                </c:forEach>
+            </select>
             <small id="Имя класса" class="form-text text-muted">Введете класификацию.</small>
         </div>
         <button type="submit" class="btn btn-primary">Добавить</button>

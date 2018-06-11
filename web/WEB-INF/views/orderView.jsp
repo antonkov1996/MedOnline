@@ -55,7 +55,7 @@
                     <form method="post" action="/order/add">
                         <c:set var="medicineWrapperList" value="${medicineWrapperList}" scope="session"/>
                             <%--<input type="hidden" name="orderWrapperList" value="${orderWrapperList}"/>--%>
-                        <input type="submit" value="Составить заказ">
+                        <input type="submit" class="btn btn-primary"  value="Составить заказ">
                     </form>
                 </c:otherwise>
 

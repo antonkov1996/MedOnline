@@ -25,6 +25,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/login">Вход</a>
                     <a class="dropdown-item" href="/logout">Выход</a>
+                    <a class="dropdown-item" href="/register">Регистрация</a>
                     <a class="dropdown-item" href="/customerInfo">Информация о пользователе</a>
                     <a class="dropdown-item" href="/yourorders">Ваши заказы</a>
                 </div>
