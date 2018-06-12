@@ -15,7 +15,7 @@
                 <a class="nav-link" href="/catalog">Каталог <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/provider/all">Поставщики <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/provider/all">Производители <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -39,12 +39,16 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/order/all">Все заказы</a>
                         <a class="dropdown-item" href="/medicine/all">Все препараты</a>
-                        <a class="dropdown-item" href="/provider/all">Поставщики</a>
+                        <a class="dropdown-item" href="/provider/all">Производителя</a>
                         <a class="dropdown-item" href="/customer/all">Клиенты</a>
                         <a class="dropdown-item" href="/class/add">Добавить классификацию</a>
                         <a class="dropdown-item" href="/medicine/create">Добавить препарат</a>
                         <a class="dropdown-item" href="/provider/add">Добавить производителя</a>
                     </div>
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="../../images/Spravka.chm">Справка <span class="sr-only">(current)</span></a>
+                </li>
                 </li>
             </c:if>
 

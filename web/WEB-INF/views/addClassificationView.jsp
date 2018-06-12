@@ -21,15 +21,19 @@
     <form method="POST" action="${pageContext.request.contextPath}/class/add">
         <div class="form-group">
             <label for="exampleInputEmail1">Имя класса</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="description" aria-describedby="Имя класса" placeholder="Имя класса">
+            <input type="text" class="form-control" id="exampleInputEmail1" name="description"
+                   aria-describedby="Имя класса" placeholder="Имя класса">
             <small id="Имя класса" class="form-text text-muted">Введете новую класификацию.</small>
         </div>
         <button type="submit" class="btn btn-primary">Добавить</button>
-        <a href="/catalog"><button type="button" class="btn btn-primary">Отмена</button></a>
+        <a href="/catalog">
+            <button type="button" class="btn btn-primary">Отмена</button>
+        </a>
     </form>
 
-
+    <br>
 </div>
+<jsp:include page="_footer.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

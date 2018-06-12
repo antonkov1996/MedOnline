@@ -30,7 +30,20 @@
             Пароль: <b>${customer.password}</b><br>
 
             <br/>
-            Роль: ${customer.role } <br/>
+            Роль: ${customer.role } <br/><hr>
+            <h3>Его заказы</h3>
+            <c:forEach items="${orderList}" var="orders">
+                <hr>
+                <p><b>Заказ номер: ${orders.id_order}</b></p>
+                <form action="/order/del" method="post">
+                    <input type="hidden" name="id" value="${orders.id_order}"/>
+                    <input type="submit" class="btn btn-primary"  value="Удалить">
+                </form>
+
+
+            </c:forEach>
+
+
         </c:when>
         <c:otherwise>
             <h3>Информация о пользователе</h3>
@@ -46,9 +59,10 @@
     </c:choose>
 
 
-
+    <br>
 
 </div>
+<jsp:include page="_footer.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

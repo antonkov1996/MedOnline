@@ -18,7 +18,7 @@
 <jsp:include page="_header.jsp"></jsp:include>
 <div class="container">
     <p style="color: red;">${errorString}</p>
-    <h2>Припарат ${medicine.medicine_name}</h2>
+    <h2>Препарат ${medicine.medicine_name}</h2>
     <ul>
         <li>Наименование: ${medicine.medicine_name}</li>
         <li>Производитель:
@@ -59,6 +59,7 @@
 
     <br>
 </div>
+<jsp:include page="_footer.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
